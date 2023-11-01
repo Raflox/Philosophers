@@ -6,7 +6,7 @@
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 15:51:50 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/31 16:43:53 by rafilipe         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:11:59 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	data_init(char **av)
 		data()->total_meals = ft_atoi(av[5]);
 	else
 		data()->total_meals = INT_MAX;
-	data()->all_ate = 0;
 	data()->is_dead = 0;
 	pthread_mutex_init(&data()->log, NULL);
+	pthread_mutex_init(&data()->death, NULL);
 	philos_init();
 }

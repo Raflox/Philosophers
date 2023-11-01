@@ -2,7 +2,7 @@
 #                                    CONFIGS                                   #
 ################################################################################
 
-NAME     := philos
+NAME     := philo
 CC       := cc
 CFLAGS    := -Wall -Wextra -Werror -pthread -g -fsanitize=thread
 
@@ -17,6 +17,7 @@ SRCS        :=		main.c 		\
 					checkers.c	\
 					error.c		\
 					logging.c	\
+					routine.c	\
                           
 OBJS        := $(SRCS:.c=.o)
 

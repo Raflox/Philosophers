@@ -6,7 +6,7 @@
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:39:12 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/31 16:14:56 by rafilipe         ###   ########.fr       */
+/*   Updated: 2023/10/31 20:51:12 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_config {
 	int				total_meals;
 	int				start_time;
 	int				is_dead;
-	int				all_ate;
+	pthread_mutex_t	death;
 	t_philo			*philos;
 	pthread_mutex_t	log;
 }	t_config;
@@ -60,9 +60,18 @@ void		data_init(char **av);
 int			threads_init(void);
 void		*routine(void *philos);
 
+/* ROUTINE */
+void		eat(t_philo	*philo);
+void		rest(t_philo *philo);
+void		think(t_philo *philo);
+int			grim_reaper(t_philo *philo);
+
+
 /* UTILS */
 int			ft_atoi(const char *str);
 void		ft_usleep(int time);
+void		lock_fork(int fork, t_philo *philo);
+void		unlock_forks(int fork, t_philo *philo);
 
 /* CHECKERS */
 int			check_digit(char *str);

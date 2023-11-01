@@ -6,7 +6,7 @@
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:39:09 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/31 14:14:28 by rafilipe         ###   ########.fr       */
+/*   Updated: 2023/10/31 20:50:23 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,35 @@ void	ft_usleep(int time)
 	while ((get_time() - start) < time)
 		usleep(500);
 }
+
+void	lock_fork(int fork, t_philo *philo)
+{
+	while (true)
+	{
+		pthread_mutex_lock(&philo->forks[fork].hold);
+		if (philo->forks[fork].status == 1)
+		{
+			philo->forks[fork].status = 0;
+			logger("has taken a fork", PURPLE, philo);
+			pthread_mutex_unlock(&philo->forks[fork].hold);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->forks[fork].hold);
+	}
+}
+
+void	unlock_forks(int fork, t_philo *philo)
+{
+	while (true)
+	{
+		pthread_mutex_lock(&philo->forks[fork].hold);
+		if (philo->forks[fork].status == 0)
+		{
+			philo->forks[fork].status = 1;
+			pthread_mutex_unlock(&philo->forks[fork].hold);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->forks[fork].hold);
+	}
+}
+

@@ -6,7 +6,7 @@
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 09:09:42 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/31 16:15:15 by rafilipe         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:00:27 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	error(const char *msg, const char *mode)
 	else if (mode == "Forks")
 		;//clean() */
 	printf("%s\n", msg);
-	exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE); //FIXME: Cannot use exit();
 }
