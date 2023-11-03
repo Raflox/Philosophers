@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -31,18 +31,23 @@ int	ft_atoi(const char *str)
 	return (res);
 }
 
-void	ft_usleep(int time)
+void	ft_usleep(int time, t_philo *philo)
 {
 	int	start;
 
+	(void)philo;
 	start = get_time();
 	while ((get_time() - start) < time)
+	{
+		if (grim_reaper(philo))
+			return ;
 		usleep(500);
+	}
 }
 
 void	lock_fork(int fork, t_philo *philo)
 {
-	while (true)
+	while (!grim_reaper(philo) && !death_check())
 	{
 		pthread_mutex_lock(&philo->forks[fork].hold);
 		if (philo->forks[fork].status == 1)
@@ -58,7 +63,7 @@ void	lock_fork(int fork, t_philo *philo)
 
 void	unlock_forks(int fork, t_philo *philo)
 {
-	while (true)
+	while (!grim_reaper(philo))
 	{
 		pthread_mutex_lock(&philo->forks[fork].hold);
 		if (philo->forks[fork].status == 0)
@@ -71,3 +76,14 @@ void	unlock_forks(int fork, t_philo *philo)
 	}
 }
 
+int	death_check(void)
+{
+	pthread_mutex_lock(&data()->death);
+	if (data()->is_dead)
+	{
+		pthread_mutex_unlock(&data()->death);
+		return (1);
+	}
+	pthread_mutex_unlock(&data()->death);
+	return (0);
+}

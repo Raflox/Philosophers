@@ -4,20 +4,20 @@
 
 NAME     := philo
 CC       := cc
-CFLAGS    := -Wall -Wextra -Werror -pthread -g -fsanitize=thread
+CFLAGS    := -Wall -Wextra -Werror -pthread #-g -fsanitize=address
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=		main.c 		\
-					utils.c		\
-					time.c		\
-					data.c		\
-					checkers.c	\
-					error.c		\
-					logging.c	\
-					routine.c	\
+SRCS        :=		srcs/main.c 	\
+					srcs/utils.c	\
+					srcs/time.c		\
+					srcs/data.c		\
+					srcs/checkers.c	\
+					srcs/error.c	\
+					srcs/logging.c	\
+					srcs/routine.c	\
                           
 OBJS        := $(SRCS:.c=.o)
 

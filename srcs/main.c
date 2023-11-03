@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logging.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 12:45:49 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/26 13:02:58 by rafilipe         ###   ########.fr       */
+/*   Created: 2023/09/04 10:34:06 by rafilipe          #+#    #+#             */
+/*   Updated: 2023/10/31 20:49:47 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
-void	logger(const char *msg, char *color, t_philo *philo)
+t_config	*data(void)
 {
-	pthread_mutex_lock(&data()->log);
-	printf("%s%d %d %s\n", color, time_elapsed(), philo->id, msg);
-	pthread_mutex_unlock(&data()->log);
+	static t_config	data;
+
+	return (&data);
+}
+
+int	main(int ac, char **av)
+{
+	if (check_args(ac, av))
+	{
+		data_init(av);
+		threads_init();
+	}
+	//printf("AQUI\n");
+	clean(1);
 }

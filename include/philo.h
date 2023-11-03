@@ -26,7 +26,8 @@
 # define GREEN "\033[1;32m" 		//Eating
 # define RED "\033[1;31m"			//Death
 # define YELLOW "\033[1;33m"		//Thinking
-# define PURPLE "\033[0;35m"		//Fork
+# define PURPLE "\033[1;35m"		//Fork
+# define WHITE "\033[1;37m"			//Debug
 
 typedef struct s_fork {
 	int				status;
@@ -65,11 +66,11 @@ void		eat(t_philo	*philo);
 void		rest(t_philo *philo);
 void		think(t_philo *philo);
 int			grim_reaper(t_philo *philo);
-
+int			death_check(void);
 
 /* UTILS */
 int			ft_atoi(const char *str);
-void		ft_usleep(int time);
+void		ft_usleep(int time, t_philo *philo);
 void		lock_fork(int fork, t_philo *philo);
 void		unlock_forks(int fork, t_philo *philo);
 
@@ -85,6 +86,7 @@ int			get_time(void);
 void		logger(const char *msg, char *color, t_philo *philo);
 
 /* ERROR */
-void		error(const char *msg, const char *mode);
+void		error(const char *msg, int mode);
+void		clean(int mode);
 
 #endif

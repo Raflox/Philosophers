@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	threads_init(void)
 {
@@ -19,17 +19,20 @@ int	threads_init(void)
 	i = -1;
 	while (++i < data()->philos_nb)
 	{
-		if (pthread_create(&data()->philos[i].philo, NULL, &routine, &data()->philos[i]))
-			error("Error: Thread Creation", "All");
+		if (pthread_create(&data()->philos[i].philo, NULL, \
+			&routine, &data()->philos[i]))
+		{
+			error("Error: Thread Creation", 1);
+			return (0);
+		}
 	}
 	i = -1;
 	while (++i < data()->philos_nb)
 	{
 		if (pthread_join(data()->philos[i].philo, NULL))
-			error("Error: Thread Join", "All");
+			error("Error: Thread Join", 1);
 	}
 	return (0);
-	//TODO: END OF ROUTINE HERE -> CLEAN PROGRAM
 }
 
 t_fork	*forks_init(void)
@@ -39,12 +42,12 @@ t_fork	*forks_init(void)
 
 	forks = malloc(sizeof(t_fork) * data()->philos_nb);
 	if (!forks)
-		error("Error: Forks Malloc", "Philos");
+		error("Error: Forks Malloc", 2);
 	i = -1;
 	while (++i < data()->philos_nb)
 	{
 		forks[i].status = 1;
-		if (pthread_mutex_init(&forks[i].hold, NULL)) //TODO: When to destroy the mutexes???
+		if (pthread_mutex_init(&forks[i].hold, NULL))
 			return (NULL);
 	}
 	return (forks);
@@ -57,10 +60,10 @@ void	philos_init(void)
 
 	data()->philos = malloc(sizeof(t_philo) * data()->philos_nb);
 	if (!data()->philos)
-		error("Error: Philos Malloc", NULL);
+		error("Error: Philos Malloc", 0);
 	forks = forks_init();
 	if (!forks)
-		error("Error: Forks Mutex", "All");
+		error("Error: Forks Mutex", 1);
 	i = -1;
 	while (++i < data()->philos_nb)
 	{

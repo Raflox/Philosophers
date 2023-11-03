@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   logging.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 14:53:22 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/27 15:48:56 by rafilipe         ###   ########.fr       */
+/*   Created: 2023/10/20 12:45:49 by rafilipe          #+#    #+#             */
+/*   Updated: 2023/10/26 13:02:58 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
-
-
-int	get_time(void)
+void	logger(const char *msg, char *color, t_philo *philo)
 {
-	struct timeval	curr_time;
-
-	gettimeofday(&curr_time, NULL);
-	return ((curr_time.tv_sec * 1000) + (curr_time.tv_usec / 1000));
-}
-
-int	time_elapsed(void)
-{
-	return ((get_time()) - data()->start_time);
+	pthread_mutex_lock(&data()->log);
+	printf("%s%d %d %s\n", color, time_elapsed(), philo->id, msg);
+	pthread_mutex_unlock(&data()->log);
 }

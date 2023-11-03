@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 //FIXME: make check_limits and atoi, only one function.
 int	check_limits(char *str)
@@ -30,7 +30,10 @@ int	check_limits(char *str)
 		i++;
 	}
 	if (res > INT_MAX || res < INT_MIN)
+	{
+		printf("Invalid Argument\n");
 		return (false);
+	}
 	return (true);
 }
 
@@ -42,7 +45,7 @@ int	check_digit(char *str)
 			str++;
 		if (*str < 48 || *str > 57)
 		{
-			printf("Wrong Digit Detected");
+			printf("Wrong Digit Detected\n");
 			return (false);
 		}
 		str++;
@@ -55,6 +58,8 @@ int	check_args(int ac, char **av)
 	if (ac != 5 && ac != 6)
 	{
 		printf("Wrong Nº of Arguments\n");
+		printf("./philo [philo_nbr] [t_to_die] [t_to_eat] \
+		[t_to_sleep] [total_nbr_ to_eat]\n");
 		return (false);
 	}
 	while (av[--ac] && ac > 0)
@@ -69,10 +74,7 @@ int	check_args(int ac, char **av)
 	while (av[ac])
 	{
 		if (!check_digit(av[ac]) || !check_limits(av[ac]))
-		{
-			printf("Invalid Argument\n");
 			return (false);
-		}
 		ac++;
 	}
 	return (true);

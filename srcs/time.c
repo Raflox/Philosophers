@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafilipe <rafilipe@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 09:09:42 by rafilipe          #+#    #+#             */
-/*   Updated: 2023/10/31 19:00:27 by rafilipe         ###   ########.fr       */
+/*   Created: 2023/10/13 14:53:22 by rafilipe          #+#    #+#             */
+/*   Updated: 2023/10/27 15:48:56 by rafilipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
-void	error(const char *msg, const char *mode)
+int	get_time(void)
 {
-	(void) mode;
-	/* if (mode == "All")
-		;//clean()
-	else if (mode == "Philos")
-		;//clean()
-	else if (mode == "Forks")
-		;//clean() */
-	printf("%s\n", msg);
-	exit(EXIT_FAILURE); //FIXME: Cannot use exit();
+	struct timeval	curr_time;
+
+	gettimeofday(&curr_time, NULL);
+	return ((curr_time.tv_sec * 1000) + (curr_time.tv_usec / 1000));
+}
+
+int	time_elapsed(void)
+{
+	return ((get_time()) - data()->start_time);
 }
